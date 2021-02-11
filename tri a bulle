@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+
+void Lire_Tab(int *TAB,int N)
+{
+    int i;
+    for(i=0;i<N;i++)
+    {
+        printf("Saisir TAB[%d]:\n",i);
+        scanf("%d",&TAB[i]);
+    }
+}
+void Afficher_Tab(int *TAB,int N)
+{
+    int i;
+    printf("\nAffichage les elements du tableau:\n");
+    for(i=0;i<N;i++)
+    {
+        printf("%d\t",TAB[i]);
+    }
+}
+int Recherche(int V,int *TAB,int N)
+{
+    int i=0;
+    while(i<N && TAB[i] != V)
+    {
+         i++;
+    }
+    if(i==N)
+    {
+       return -1;
+    }
+    else
+       return i;
+}
+void TRI(int *TAB,int N)
+{
+    int i,terme_tri,Aide;
+    int ordre;
+
+    terme_tri=N-2;
+    do{
+        ordre=1;
+        for(i=0;i<terme_tri;i++)
+        {
+            if(TAB[i]>TAB[i+1])
+            {
+                Aide=TAB[i];
+                TAB[i]=TAB[i+1];
+                TAB[i+1]=Aide;
+
+                ordre=0;
+            }
+        }
+        if(ordre == 0)
+        {
+            terme_tri=terme_tri-1;
+        }
+
+    }while(ordre==0);
+}
+main()
+{
+    int N,V,indice;
+    int T[50];
+    /*Controle de saisie de la taille reelle du Tableau T*/
+    do{
+        printf("\nEntrer la taille reelle du Tableau T(<=50):");
+        scanf("%d",&N);
+
+      }while(N>50 && N<1);
+
+    /*Lecture de T*/
+    Lire_Tab(T,N);
+    /*Affichage de T*/
+    Afficher_Tab(T,N);
+
+    printf("Entrez une valeur:");
+    scanf("%d",&V);
+
+    /*Recherche de V*/
+    indice=Recherche(V,T,N);
+    if(indice== -1)
+        printf("\nLa valeur %d est inexistante dans le tableau T.\n",V);
+    else
+        printf("\nLa valeur %d se trouve a indice %d du tableau T.\n",V,indice);
+
+    /*Tri de T*/
+    TRI(T,N);
+
+    /*Affichage de T*/
+    Afficher_Tab(T,N);
+    printf("\n");
+    system("pause");
+}
